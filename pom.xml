@@ -38,6 +38,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.10.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -51,19 +56,15 @@
                     <target>16</target>
                 </configuration>
             </plugin>
+
+            <!-- Один-единственный javafx-maven-plugin, версия 0.0.8 -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.6</version>
-                <executions>
-                    <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
-                        <id>default-cli</id>
-                        <configuration>
-                            <mainClass>ru.etu.acis/app.EmulatorApp</mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>app/app.EmulatorApp</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

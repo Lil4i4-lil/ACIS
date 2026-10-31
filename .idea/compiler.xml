@@ -9,8 +9,5 @@
         <module name="ACIS" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ACIS" target="16" />
-    </bytecodeTargetLevel>
   </component>
 </project>
