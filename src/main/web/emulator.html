@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>RISC Emulator Applet</title>
+</head>
+<body>
+<h1>Модель однокристального RISC-процессора</h1>
+<p>
+    Классический запуск через плагин браузера работает только на JDK 8
+    и <code>appletviewer</code>. На Java 11+ откройте собранный JAR:
+    <code>java -jar ACIS-1.0-SNAPSHOT.jar</code>
+</p>
+<applet code="app.EmulatorApplet.class"
+        archive="ACIS-1.0-SNAPSHOT.jar"
+        width="821"
+        height="600">
+    <param name="code" value="app.EmulatorApplet.class">
+    Ваша среда не поддерживает Java-апплеты. Запустите JAR-файл эмулятора.
+</applet>
+</body>
+</html>
