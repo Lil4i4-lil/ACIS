@@ -16,7 +16,7 @@ public class FLW extends Instruction<OperandsRRC> {
         int upperPart = cpu.floatRegs.get(operands.secondRegister).getValue();
         int offset = operands.const12Bit;
 
-        int value = cpu.memory.getWord(upperPart + offset);
+        int value = cpu.dataBus.readWord(upperPart + offset);
 
         cpu.floatRegs.get(operands.firstRegister).setValue(value);
     }

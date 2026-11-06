@@ -19,7 +19,7 @@ public class LBU extends Instruction<OperandsRRC> {
         int upperPart = cpu.intRegs.get(operands.secondRegister).getValue();
         int offset = operands.const12Bit;
 
-        int value = cpu.memory.getByte(upperPart + offset);
+        int value = cpu.dataBus.readByte(upperPart + offset);
         value = ((value << (Register32.SIZE - ByteCell.SIZE)) >>> (Register32.SIZE - ByteCell.SIZE));
 
         cpu.intRegs.get(operands.firstRegister).setValue(value);

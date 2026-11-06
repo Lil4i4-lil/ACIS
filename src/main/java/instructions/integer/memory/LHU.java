@@ -20,7 +20,7 @@ public class LHU extends Instruction<OperandsRRC> {
         int upperPart = cpu.intRegs.get(operands.secondRegister).getValue();
         int offset = operands.const12Bit;
 
-        int value = cpu.memory.getHalfWord(upperPart + offset);
+        int value = cpu.dataBus.readHalfWord(upperPart + offset);
         value = ((value << (Register32.SIZE - HalfWordCell.SIZE)) >>> (Register32.SIZE - HalfWordCell.SIZE));
 
         cpu.intRegs.get(operands.firstRegister).setValue(value);

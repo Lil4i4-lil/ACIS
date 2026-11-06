@@ -17,7 +17,7 @@ public class LB extends Instruction<OperandsRRC> {
         int upperPart = cpu.intRegs.get(operands.secondRegister).getValue();
         int offset = operands.const12Bit;
 
-        int value = cpu.memory.getByte(upperPart + offset);
+        int value = cpu.dataBus.readByte(upperPart + offset);
 
         cpu.intRegs.get(operands.firstRegister).setValue(value);
     }

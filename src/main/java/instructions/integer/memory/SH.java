@@ -18,6 +18,6 @@ public class SH extends Instruction<OperandsRRC> {
 
         short value = cpu.intRegs.get(operands.firstRegister).toHalfWord().getValue();
 
-        cpu.memory.setHalfWord(upperPart + offset, value);
+        cpu.dataBus.writeHalfWord(upperPart + offset, value);
     }
 }

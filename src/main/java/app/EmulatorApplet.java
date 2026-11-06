@@ -46,7 +46,7 @@ import java.util.List;
  */
 public class EmulatorApplet extends JPanel {
     private static final int APPLET_WIDTH = 821;
-    private static final int APPLET_HEIGHT = 600;
+    private static final int APPLET_HEIGHT = 640;
     private static final Font MONO = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 
     private final JRootPane rootPane = new JRootPane();
@@ -63,6 +63,7 @@ public class EmulatorApplet extends JPanel {
     private JList<Register32> floatRegsListView;
     private JList<Register32> programCounterListView;
     private JList<StatusRegister> statusListView;
+    private JLabel busStatusLabel;
 
     private DefaultListModel<WordCell> memoryModel;
     private DefaultListModel<Register32> intRegsModel;
@@ -145,12 +146,16 @@ public class EmulatorApplet extends JPanel {
         left.add(buildCodePanel(), BorderLayout.NORTH);
         left.add(buildRegistersPanel(), BorderLayout.CENTER);
 
-        JPanel right = new JPanel(new BorderLayout());
+        JPanel right = new JPanel(new BorderLayout(0, 8));
         right.add(centeredLabel("Memory"), BorderLayout.NORTH);
         memoryListView = createList();
-        memoryListView.setVisibleRowCount(28);
+        memoryListView.setVisibleRowCount(24);
         right.add(new JScrollPane(memoryListView), BorderLayout.CENTER);
-        right.setPreferredSize(new Dimension(270, 0));
+        busStatusLabel = new JLabel(cpu.dataBus.statusText(), SwingConstants.LEFT);
+        busStatusLabel.setFont(MONO);
+        busStatusLabel.setBorder(new EmptyBorder(4, 4, 4, 4));
+        right.add(busStatusLabel, BorderLayout.SOUTH);
+        right.setPreferredSize(new Dimension(290, 0));
 
         root.add(left, BorderLayout.CENTER);
         root.add(right, BorderLayout.EAST);
@@ -253,6 +258,7 @@ public class EmulatorApplet extends JPanel {
                 for (int i = 0; i < instructionsData.size(); ++i) {
                     memoryModel.get(i).setValue(instructionsData.get(i));
                 }
+                cpu.dataBus.discardPrefetch();
             } catch (IncorrectFormatException ex) {
                 showAlert(ex.getMessage());
             }
@@ -342,6 +348,7 @@ public class EmulatorApplet extends JPanel {
         floatRegsListView.repaint();
         programCounterListView.repaint();
         statusListView.repaint();
+        busStatusLabel.setText(cpu.dataBus.statusText());
     }
 
     private static JLabel centeredLabel(String text) {

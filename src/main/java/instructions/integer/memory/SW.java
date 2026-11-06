@@ -18,6 +18,6 @@ public class SW extends Instruction<OperandsRRC> {
 
         int value = cpu.intRegs.get(operands.firstRegister).getValue();
 
-        cpu.memory.setWord(upperPart + offset, value);
+        cpu.dataBus.writeWord(upperPart + offset, value);
     }
 }

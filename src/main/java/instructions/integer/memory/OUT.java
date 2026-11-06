@@ -12,6 +12,6 @@ public class OUT extends Instruction<OperandsR> {
 
     @Override
     public void execute(CPU cpu, OperandsR operands) throws InterruptException {
-        cpu.port.sendDataToPin(cpu.intRegs.get(operands.register).getValue());
+        cpu.dataBus.isolatedOut(cpu.port, cpu.intRegs.get(operands.register).getValue());
     }
 }

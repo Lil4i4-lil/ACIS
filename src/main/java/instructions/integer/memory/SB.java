@@ -18,6 +18,6 @@ public class SB extends Instruction<OperandsRRC> {
 
         byte value = cpu.intRegs.get(operands.firstRegister).toByteCell().getValue();
 
-        cpu.memory.setByte(upperPart + offset, value);
+        cpu.dataBus.writeByte(upperPart + offset, value);
     }
 }

@@ -12,6 +12,6 @@ public class IN extends Instruction<OperandsR> {
 
     @Override
     public void execute(CPU cpu, OperandsR operands) throws InterruptException {
-        cpu.intRegs.get(operands.register).setValue(cpu.port.receiveDataFromPin());
+        cpu.intRegs.get(operands.register).setValue(cpu.dataBus.isolatedIn(cpu.port));
     }
 }

@@ -1,6 +1,7 @@
 package cpu;
 
 import app.EmulationAbortException;
+import cpu.bus.DataBus;
 import cpu.interrupts.InterruptVectorTable;
 import cpu.interrupts.exceptions.InterruptException;
 import cpu.interrupts.exceptions.UnknownInstructionException;
@@ -22,6 +23,7 @@ public class CPU {
     public final StatusRegister statusReg;
         public final Register32 returnAddressRegister;
     public final RAM memory;
+    public final DataBus dataBus;
     public final Port port;
     private final InterruptVectorTable ivt;
     private boolean isProgramEnd;
@@ -43,6 +45,7 @@ public class CPU {
         programCounter = new ProgramCounter();
         statusReg = new StatusRegister();
         memory = new RAM(MEMORY_SIZE);
+        dataBus = new DataBus(memory);
         ivt = new InterruptVectorTable();
         port = new Port();
         returnAddressRegister = new Register32();
@@ -52,7 +55,7 @@ public class CPU {
     public boolean nextInstruction() throws EmulationAbortException {
         if (!isProgramEnd) {
             try {
-                int instructionData = memory.getWord(programCounter.postIncrementToNextInstruction());
+                int instructionData = dataBus.fetchInstruction(programCounter.postIncrementToNextInstruction());
                 int opcode = instructionData >>> (Instruction.SIZE - Instruction.OPCODE_SIZE);
                 if (opcode != 0) {
                     int operandsData = instructionData << Instruction.OPCODE_SIZE;
@@ -83,6 +86,7 @@ public class CPU {
         programCounter.clear();
         statusReg.clear();
         memory.clear();
+        dataBus.clear();
         isProgramEnd = false;
     }
 }

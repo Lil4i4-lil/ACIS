@@ -1,6 +1,7 @@
 package memory;
 
 import memory.cells.ByteCell;
+import memory.cells.DoubleWordCell;
 import memory.cells.HalfWordCell;
 import memory.cells.WordCell;
 
@@ -11,7 +12,7 @@ public class RAM {
     private List<ByteCell> data;
 
     public RAM(int bytesCount) {
-        if (bytesCount % WordCell.BYTES_NUMBER != 0)
+        if (bytesCount % DoubleWordCell.BYTES_NUMBER != 0)
             throw new IllegalArgumentException();
         data = new ArrayList<>(bytesCount);
         for (int count = 0; count < bytesCount; ++count)
@@ -44,6 +45,20 @@ public class RAM {
 
     public void setWord(int index, int word) {
         new WordCell(data.subList(index, index + WordCell.BYTES_NUMBER)).setValue(word);
+    }
+
+    public long getDoubleWord(int index) {
+        return new DoubleWordCell(data.subList(index, index + DoubleWordCell.BYTES_NUMBER)).getValue();
+    }
+
+    public void setDoubleWord(int index, long doubleWord) {
+        new DoubleWordCell(data.subList(index, index + DoubleWordCell.BYTES_NUMBER)).setValue(doubleWord);
+    }
+
+    public void setByteIfEnabled(int index, byte value, boolean enabled) {
+        if (enabled) {
+            setByte(index, value);
+        }
     }
 
     public List<WordCell> asWordList() {

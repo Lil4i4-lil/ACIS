@@ -27,9 +27,11 @@ Register type: universal
 
 Main memory: 4GB
 
-Data bus width: 32
+Data bus width: 64
 
-Address and data bus: combined
+Address and data bus: combined (multiplexed AD)
+
+Memory word transferred per bus cycle: 8 bytes. Registers and instructions stay 32-bit; the bus fetches two instructions in one 64-bit read (instruction prefetch) and uses byte enables for 8/16/32-bit stores. A multiplexed access takes two bus cycles: address phase, then data phase.
 
 I/O organization method: isolated
 
